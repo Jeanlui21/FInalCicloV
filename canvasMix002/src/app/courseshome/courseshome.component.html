@@ -1,0 +1,13 @@
+<div class="container-fluid py-5 bg-light" >
+  <div  class="row mx-0 px-0"  >
+
+  <div *ngFor="let courses of lista" class="mx-auto px-auto my-2 card shadow-sm table-hover" style="width: 18rem;" (click)="goGoto(courses.id,courses.name)" >
+    <img src="https://www.color-hex.com/palettes/5452.png" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">{{ courses.name}}</h5>
+      <p class="card-text"></p>
+    </div>
+  </div>
+  </div>
+
+</div>
