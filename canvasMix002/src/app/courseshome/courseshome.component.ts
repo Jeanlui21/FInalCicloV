@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Injectable } from '@angular/core';
+import { CoursesValuesService } from '../courses-values.service';
 import { CanvascoursesService } from '../canvascourses.service';
+
 import { Router } from '@angular/router';
 @Component({
   selector: 'app-courseshome',
@@ -8,10 +10,16 @@ import { Router } from '@angular/router';
 })
 export class CourseshomeComponent implements OnInit {
   private lista = null;
-  constructor(private canvascoursesService: CanvascoursesService, private router: Router ) {}
+  ide: string;
+// tslint:disable-next-line: max-line-length
+  constructor(private canvascoursesService: CanvascoursesService,private coursesValuesService: CoursesValuesService , private router: Router ) {}
 
-  goGoto(id){
+  goGoto(id,coursename){
+    let url = 'https://canvas-api-wquesada.c9users.io/api/courses/'+id+'/enrollments';
+    this.coursesValuesService.setExtras(url);
+    this.coursesValuesService.setName(coursename);
     this.router.navigate(['chart',id]);
+    this.ide = id;
   }
 
   ngOnInit() {
