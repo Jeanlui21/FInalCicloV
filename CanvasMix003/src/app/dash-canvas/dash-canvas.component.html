@@ -1,13 +1,25 @@
 <!-- Begin Page Content -->
-        <div class="container-fluid">
+        <div class="container-fluid pt-5">
             <!-- Page Heading -->
-            <div class="d-sm-flex align-items-center justify-content-between mb-4">
-              <h1 class="h3 mb-0 text-black-50">Profesor: Ejemplo</h1>
-              <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generar Reporte</a>
+            <div class="d-sm-flex align-items-center  mb-4">
+
+                <div class="btn-group" mdbDropdown>
+                    <button type="button" mdbBtn color="primary" class="waves-light" mdbWavesEffect>Profesor: Jean Lui Ferrer</button>
+                    <button type="button" mdbDropdownToggle mdbBtn color="info" class="dropdown-toggle dropdown-toggle-split px-3 waves-light"
+                      mdbWavesEffect></button>
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" href="#">Listar Estudiantes</a>
+                      <a class="dropdown-item" href="#">Actividades</a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="#">Enviar Mensaje <em>(Ciclo 6)</em></a>
+                    </div>
+                  </div>
+
             </div>
 
             <!-- Content Row -->
             <div class="row">
+
                 <div class="col-sm-6 col-md-4 col-lg-3 mt-4" *ngFor="let courses of lista">
 
                     <div class="card card-inverse card-info h-100 view overlay zoom" (click)="goGoto(courses.id,courses.name)" >
@@ -29,31 +41,5 @@
 
             </div>
           </div>
+          </div>
           <!-- /.container-fluid -->
-<script type="text/javascript">
-$(document).ready(function() {
-  $("#myCarousel").on("slide.bs.carousel", function(e) {
-    var $e = $(e.relatedTarget);
-    var idx = $e.index();
-    var itemsPerSlide = 3;
-    var totalItems = $(".carousel-item").length;
-
-    if (idx >= totalItems - (itemsPerSlide - 1)) {
-      var it = itemsPerSlide - (totalItems - idx);
-      for (var i = 0; i < it; i++) {
-        // append slides to end
-        if (e.direction == "left") {
-          $(".carousel-item")
-            .eq(i)
-            .appendTo(".carousel-inner");
-        } else {
-          $(".carousel-item")
-            .eq(0)
-            .appendTo($(this).find(".carousel-inner"));
-        }
-      }
-    }
-  });
-});
-</script>
-

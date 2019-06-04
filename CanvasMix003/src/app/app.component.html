@@ -1,77 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-</head>
-<body>
+  <html>
+    <head>
+      <!--Import Google Icon Font-->
+      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    </head>
 
-<!--Navbar-->
-<mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark bg blue darken-4 mb-4 static-top shadow" [containerInside]="false">
-  <!-- Navbar brand -->
-    <mdb-navbar-brand><a class="navbar-brand" href="/teachers">CanvasMix</a></mdb-navbar-brand>
-
-    <!-- Collapsible content -->
-    <links>
-
-      <!-- Links -->
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <a class="nav-link waves-light" mdbWavesEffect href="/dashboard">Menú Principal</a>
-        </li>
-
-        <!-- Dropdown -->
-        <li class="nav-item dropdown" dropdown>
-          <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
-            Acciones<span class="caret"></span></a>
-          <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu">
-            <a class="dropdown-item waves-light" mdbWavesEffect href="#">Ir a Canvas</a>
-            <a class="dropdown-item waves-light" mdbWavesEffect href="#">Detalles de Alumno</a>
-            <div class="divider dropdown-divider"></div>
-            <a class="dropdown-item waves-light" mdbWavesEffect href="#">Menú Principal</a>
+    <body>
+      <main>
+        <div class="side-nav-container bg blue-gradient">
+          <div class="side-nav">
+             <a href="/teachers"><i class="material-icons" mdbTooltip="Pagina Principal" placement="bottom">home</i></a>
+             <a href="/dashboard"><i class="material-icons" mdbTooltip="Listar Profesores" placement="bottom">format_list_bulleted</i></a>
+             <div class="side-nav-bottom">
+               <i class="material-icons" mdbTooltip="Cerrar Sesión" placement="top">power_settings_new</i>
+             </div>
           </div>
-        </li>
+        </div>
 
-      </ul>
-      <!-- Links -->
-
-      <ul class="navbar-nav ml-auto nav-flex-icons">
-        <li class="nav-item">
-          <a class="nav-link">
-            <mdb-icon fab icon="twitter"></mdb-icon>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link">
-            <mdb-icon fab icon="google-plus"></mdb-icon>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link">
-            <div class="btn-group" mdbDropdown>
-              <mdb-icon fas icon="user" mdbDropdownToggle></mdb-icon>
-              <div class="dropdown-menu dropdown-menu-right dropdown-primary">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
-                <div class="divider dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Separated link</a>
-              </div>
-            </div>
-          </a>
-        </li>
-      </ul>
-    </links>
-    <!-- Collapsible content -->
-
-  </mdb-navbar>
-  <!--/.Navbar-->
-
-      <router-outlet></router-outlet>
-</body>
-</html>
+        <router-outlet></router-outlet>
+      </main>
+    </body>
+  </html>
 
 
 
