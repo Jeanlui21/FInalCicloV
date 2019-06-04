@@ -1,0 +1,21 @@
+<div class="row mx-auto my-5">
+  <div class="col-md-8 mx-auto">
+      <div  class="mx-auto card shadow border border-primary" >
+          <div class="card-body">
+            <h5 class="card-title my-3">{{ courseName }}</h5>
+            <div style="display: block">
+              <canvas mdbChart
+                  [chartType]="chartType"
+                  [datasets]="chartDatasets"
+                  [labels]="chartLabels"
+                  [colors]="chartColors"
+                  [options]="chartOptions"
+                  [legend]="true">
+              </canvas>
+            </div>
+          </div>
+
+        </div>
+
+</div>
+</div>
