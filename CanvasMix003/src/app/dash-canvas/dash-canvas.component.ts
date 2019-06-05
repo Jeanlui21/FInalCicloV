@@ -12,13 +12,16 @@ import { Router } from '@angular/router';
 })
 export class DashCanvasComponent implements OnInit {
 
-  private lista = null;
+  lista: any;
+
   constructor(private canvascoursesService: CanvasInfoService,
               private router: Router,
               private canvasmasterValues: CanvasMasterValuesService) {}
 
   goGoto(id, name) {
     // Envio de parametros por medio de getter y setter
+    const parametros = [];
+    parametros.push({ 'nombre': name, 'id': id});
     this.canvasmasterValues.setcourseName(name);
     this.router.navigate(['charts', id]);
   }

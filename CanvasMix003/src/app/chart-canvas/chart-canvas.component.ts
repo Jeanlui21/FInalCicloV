@@ -24,6 +24,9 @@ export class ChartCanvasComponent implements OnInit, AfterContentInit {
   month = [];
   price = [];
   chart = [];
+  aprobados = [];
+  desaprobados = [];
+
 
 
 // BMD Chart
@@ -54,6 +57,14 @@ chartColors: any;
         multi = numero * 0.2;
 
         this.price.push(Math.round(multi));
+
+        if (multi > 13) {
+          this.aprobados.push({ 'nombre': nombre, 'nota': multi});
+
+        } else {
+          this.desaprobados.push({ 'nombre': nombre, 'nota': multi});
+
+        }
       });
 
     } catch (e) {
