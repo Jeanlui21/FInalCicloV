@@ -20,9 +20,8 @@ export class DashCanvasComponent implements OnInit {
 
   goGoto(id, name) {
     // Envio de parametros por medio de getter y setter
-    const parametros = [];
-    parametros.push({ 'nombre': name, 'id': id});
-    this.canvasmasterValues.setcourseName(name);
+
+    this.canvasmasterValues.setcourseName(id, name);
     this.router.navigate(['charts', id]);
   }
 

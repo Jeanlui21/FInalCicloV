@@ -1,6 +1,6 @@
-import { Component, OnInit, AfterContentInit } from '@angular/core';
+import { Component, OnInit,  } from '@angular/core';
 // Imports propios
-import { Chart } from 'chart.js';
+
 import { CanvasMasterValuesService } from '../canvas-master-values.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
@@ -11,18 +11,23 @@ import { Data } from './data/Data';
   templateUrl: './chart-canvas.component.html',
   styleUrls: ['./chart-canvas.component.scss']
 })
-export class ChartCanvasComponent implements OnInit, AfterContentInit {
+export class ChartCanvasComponent implements OnInit {
 
   // Objetos
 
   errorHandler: any;
   courseName: string;
   courseID: string;
+  promedio: number;
+  puntaje: number;
   title = 'app';
-  data: Data[];
-  dataUrl: string;
+
   month = [];
   price = [];
+
+  monthPIE = [];
+  pricePIE = [];
+
   chart = [];
   aprobados = [];
   desaprobados = [];
@@ -30,33 +35,50 @@ export class ChartCanvasComponent implements OnInit, AfterContentInit {
 
 
 // BMD Chart
-chartType: string;
+chartType = 'horizontalBar';
 chartDatasets: any;
 chartLabels: any;
 chartOptions: any;
 chartColors: any;
 
+// BMD Chart
+chartTypePIE = 'pie';
+chartDatasetsPIE: any;
+chartLabelsPIE: any;
+chartOptionsPIE: any;
+chartColorsPIE: any;
   constructor(private httpClient: HttpClient,
               private coursesValuesService: CanvasMasterValuesService,
               private router: Router,
               private route: ActivatedRoute ) { }
 
+  ngOnInit() {
 
-  ngAfterContentInit() {
 
-    this.httpClient.get(this.dataUrl).subscribe((res: Data[]) => {
+    this.route.paramMap.subscribe(params => {
+      this.courseID = params.get('id');
+    });
+
+    this.courseName = this.coursesValuesService.getcourseName();
+    const dataUrl = 'https://canvas-api-wquesada.c9users.io/api/courses/' + this.courseID + '/enrollments';
+
+    this.httpClient.get(dataUrl).subscribe((res: Data[]) => {
+
       try {
       res.forEach(y => {
+
         this.month.push(y.user.name);
+        const nombre: any = y.user.name;
+        const numero: any = y.grades.current_score;
+        const multi: any = Math.round(numero * 0.2);
+        this.price.push(multi);
 
-        let nombre: any;
-        nombre = y.user.name;
-        let numero: any;
-        numero = y.grades.current_score;
-        let multi: any;
-        multi = numero * 0.2;
+        this.promedio =  ((this.price.reduce( function (a, b) { return a + b; })) / this.price.length);
+        this.puntaje =  (this.price.reduce( function (a, b) { return a + b; }));
 
-        this.price.push(Math.round(multi));
+
+        this.pricePIE.push(multi);
+        this.monthPIE.push(y.user.name);
 
         if (multi > 13) {
           this.aprobados.push({ 'nombre': nombre, 'nota': multi});
@@ -65,11 +87,23 @@ chartColors: any;
           this.desaprobados.push({ 'nombre': nombre, 'nota': multi});
 
         }
+
+
+
+
+
+
+
       });
+
+
 
     } catch (e) {
       this.router.navigate(['error']);
     }
+
+
+
 
       this.chartType = 'horizontalBar';
 
@@ -82,32 +116,21 @@ chartColors: any;
       this.chartColors = [
         {
           backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(255, 206, 86, 0.2)',
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(153, 102, 255, 0.2)',
-            'rgba(255, 159, 64, 0.2)',
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(255, 206, 86, 0.2)',
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(153, 102, 255, 0.2)',
-            'rgba(255, 159, 64, 0.2)'
+            '#d50000',
+            '#c51162',
+            '#aa00ff',
+            '#311b92',
+            '#1a237e',
+            '#0d47a1',
+            '#6200ea',
+            '#304ffe',
+            '#e65100',
+            '#ffc400',
+            '#1b5e20',
+            '#e64a19'
           ],
           borderColor: [
-            'rgba(255,99,132,1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)',
-            'rgba(75, 192, 192, 1)',
-            'rgba(153, 102, 255, 1)',
-            'rgba(255, 159, 64, 1)',
-            'rgba(255,99,132,1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)',
-            'rgba(75, 192, 192, 1)',
-            'rgba(153, 102, 255, 1)',
-            'rgba(255, 159, 64, 1)'
+            '#4285F4'
           ],
           borderWidth: 2,
         }
@@ -116,23 +139,41 @@ chartColors: any;
       this.chartOptions = {
         responsive: true
       };
+
+
+
+      this.chartDatasetsPIE = [
+        { data: this.pricePIE, label: 'Porcentaje' }
+      ];
+
+      this.chartLabelsPIE = this.monthPIE;
+
+      this.chartColorsPIE = [
+        {
+          backgroundColor: [
+            '#d50000',
+            '#c51162',
+            '#aa00ff',
+            '#311b92',
+            '#1a237e',
+            '#0d47a1',
+            '#6200ea',
+            '#304ffe',
+            '#e65100',
+            '#ffc400',
+            '#1b5e20',
+            '#e64a19'
+          ],
+          hoverBackgroundColor: ['#FF5A5E', '#5AD3D1', '#FFC870', '#A8B3C5', '#616774'],
+          borderWidth: 2,
+        }
+      ];
+
+      this.chartOptionsPIE = {
+        responsive: true
+      };
     }
   );
-
-
-
-
-  }
-
-
-  ngOnInit() {
-
-    this.route.paramMap.subscribe(params => {
-      this.courseID = params.get('id');
-    });
-
-    this.dataUrl = 'https://canvas-api-wquesada.c9users.io/api/courses/' + this.courseID + '/enrollments';
-    this.courseName = this.coursesValuesService.getcourseName();
   }
 
 }
